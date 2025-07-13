@@ -510,16 +510,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 gsap.to('.loading-screen', {
-                            opacity: 0,
-                            duration: 0.5,
-                            onComplete: () => {
-                                document.querySelector('.loading-screen').style.display = 'none';
-                                initAnimations();
-                            }
-                        });
-                    }, 500);
-                }
-            }, 200);
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        document.querySelector('.loading-screen').style.display = 'none';
+                        initAnimations();
+                    }
+                });
+            }, 2000); // Show loading screen for 2 seconds
         });
 
         // GSAP animations
