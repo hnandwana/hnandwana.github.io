@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harsh's Retro Portfolio</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Cuprum:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?fami    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-text">Loading...</div>
+        <div class="sandglass">
+            <div class="sand"></div>
+            <div class="sand-pile"></div>
+        </div>
+    </div>z+One&family=Cuprum:wght@400;700&display=swap" rel="stylesheet">
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <!-- Howler.js for audio -->
@@ -13,14 +20,15 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/styles/main.css">
     <style>
-        :root {
-            --color-paper: #e6d5ac;
-            --color-ink: #2c1810;
-            --color-accent: #f4d03f;
-            --color-highlight: #d35400;
-            --font-display: 'Fugaz One', cursive;
-            --font-text: 'Cuprum', sans-serif;
-        }
+    :root {
+        --color-paper: #f4e4bc;
+        --color-ink: #2c1810;
+        --color-accent: #d35400;
+        --color-highlight: #f4d03f;
+        --color-shadow: rgba(44, 24, 16, 0.2);
+        --font-display: 'Fugaz One', cursive;
+        --font-text: 'Cuprum', sans-serif;
+    }
         
         * {
             margin: 0;
@@ -186,19 +194,78 @@
             margin-bottom: 20px;
             animation: bounce 0.5s ease infinite;
         }
-        .loading-bar-container {
-            width: 200px;
-            height: 20px;
-            background: #fff;
-            border: 3px solid var(--color-ink);
-            border-radius: 10px;
-            overflow: hidden;
+        .sandglass {
+            width: 100px;
+            height: 140px;
+            position: relative;
+            margin: 20px auto;
         }
-        .loading-bar {
-            width: 0%;
-            height: 100%;
-            background: var(--color-highlight);
-            transition: width 0.5s ease;
+        .sandglass::before,
+        .sandglass::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 70px;
+            background-color: var(--color-ink);
+        }
+        .sandglass::before {
+            top: 0;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+        .sandglass::after {
+            bottom: 0;
+            clip-path: polygon(50% 0, 0 100%, 100% 100%);
+        }
+        .sand {
+            position: absolute;
+            left: 50%;
+            width: 8px;
+            background: var(--color-accent);
+            animation: sand-fall 2s linear infinite;
+        }
+        @keyframes sand-fall {
+            0% {
+                top: 20%;
+                height: 0;
+                opacity: 0;
+            }
+            20% {
+                top: 20%;
+                height: 60px;
+                opacity: 1;
+            }
+            80% {
+                top: 60%;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                top: 60%;
+                height: 0;
+                opacity: 0;
+            }
+        }
+        .sand-pile {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 0;
+            background: var(--color-accent);
+            clip-path: polygon(0 100%, 50% 0, 100% 100%);
+            animation: sand-pile 2s linear infinite;
+        }
+        @keyframes sand-pile {
+            0% {
+                height: 0;
+            }
+            80% {
+                height: 20px;
+            }
+            100% {
+                height: 20px;
+            }
         }
     </style>
 </head>
@@ -441,16 +508,8 @@
 
         // Loading screen animation
         document.addEventListener('DOMContentLoaded', () => {
-            const loadingBar = document.querySelector('.loading-bar');
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 15;
-                if (progress > 100) progress = 100;
-                loadingBar.style.width = progress + '%';
-                if (progress === 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        gsap.to('.loading-screen', {
+            setTimeout(() => {
+                gsap.to('.loading-screen', {
                             opacity: 0,
                             duration: 0.5,
                             onComplete: () => {
