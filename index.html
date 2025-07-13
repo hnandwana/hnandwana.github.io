@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuphead Style Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <title>Harsh's Retro Portfolio</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Cuprum:wght@400;700&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Howler.js for audio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/styles/main.css">
     <style>
+        :root {
+            --color-paper: #e6d5ac;
+            --color-ink: #2c1810;
+            --color-accent: #f4d03f;
+            --color-highlight: #d35400;
+            --font-display: 'Fugaz One', cursive;
+            --font-text: 'Cuprum', sans-serif;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -149,70 +165,165 @@
             transform: translateY(2px);
             box-shadow: 0 2px 0 #2c1810;
         }
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-paper);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .loading-text {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-ink);
+            margin-bottom: 20px;
+            animation: bounce 0.5s ease infinite;
+        }
+        .loading-bar-container {
+            width: 200px;
+            height: 20px;
+            background: #fff;
+            border: 3px solid var(--color-ink);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--color-highlight);
+            transition: width 0.5s ease;
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-text">LOADING...</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Music Toggle -->
+    <div class="music-toggle">
+        <button id="musicBtn" class="btn-music" aria-label="Toggle Music">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Background Effects -->
     <div class="grain-overlay"></div>
-    <header>
-        <div class="profile-container">
-            <img src="https://github.com/hnandwana.png" alt="Profile Picture" class="profile-img">
+    <div class="vignette"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="profile-frame">
+                <img src="https://github.com/hnandwana.png" alt="Harsh Nandwana" class="profile-pic">
+            </div>
+            <h1>Harsh Nandwana</h1>
+            <p>Crafting Digital Experiences with a Touch of Magic</p>
         </div>
-        <h1>Harsh Nandwana</h1>
-        <p class="title">Software Developer & Code Artist</p>
-    </header>
+    </section>
 
-    <div class="section">
-        <h2>About Me</h2>
-        <p>Welcome to my whimsically crafted corner of the web! Like Cuphead's determined spirit, I'm a passionate developer who tackles coding challenges with creativity and persistence. Ready to turn your digital dreams into reality!</p>
-    </div>
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="card">
+                <h2>About the Artist</h2>
+                <p>Step right up to my digital canvas! Like the golden age of animation, I bring ideas to life with creativity and precision. Every project is a unique adventure, where modern technology meets classic craftsmanship.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="section projects-section">
-        <h2>Featured Projects</h2>
-        <p>Step right up and witness these marvelous creations! Each project is a unique adventure, crafted with determination and polished to perfection. Roll up, roll up!</p>
-        <div class="project-cards">
-            <div class="project-card">
-                <div class="card-content">
-                    <h3>Project 1</h3>
-                    <p>A magnificent creation that pushes the boundaries of what's possible!</p>
-                    <a href="#" class="project-link">View Project</a>
+    <!-- Projects Section -->
+    <section class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Attractions</h2>
+            <div class="project-grid">
+                <article class="project-card">
+                    <h3>Project Wonderland</h3>
+                    <p>A magical journey through modern web technologies</p>
+                    <div class="project-links">
+                        <a href="#" class="btn">View Project</a>
+                        <a href="#" class="btn">GitHub</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <h3>Code Symphony</h3>
+                    <p>Orchestrating complex systems with elegant solutions</p>
+                    <div class="project-links">
+                        <a href="#" class="btn">View Project</a>
+                        <a href="#" class="btn">GitHub</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <h3>Digital Dreams</h3>
+                    <p>Where imagination meets implementation</p>
+                    <div class="project-links">
+                        <a href="#" class="btn">View Project</a>
+                        <a href="#" class="btn">GitHub</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills">
+        <div class="container">
+            <h2 class="section-title">Special Powers</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">✨</div>
+                    <h3>Frontend Wizardry</h3>
+                    <ul>
+                        <li>HTML5 & CSS3</li>
+                        <li>JavaScript/TypeScript</li>
+                        <li>React & Vue.js</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <h3>Backend Sorcery</h3>
+                    <ul>
+                        <li>Node.js</li>
+                        <li>Python</li>
+                        <li>Java</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎯</div>
+                    <h3>Database Magic</h3>
+                    <ul>
+                        <li>PostgreSQL</li>
+                        <li>MongoDB</li>
+                        <li>Redis</li>
+                    </ul>
                 </div>
             </div>
-            <div class="project-card">
-                <div class="card-content">
-                    <h3>Project 2</h3>
-                    <p>Witness the extraordinary blend of technology and creativity!</p>
-                    <a href="#" class="project-link">View Project</a>
-                </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">Send a Message</h2>
+            <div class="contact-content">
+                <a href="https://github.com/hnandwana" target="_blank" class="btn">GitHub</a>
+                <a href="https://linkedin.com/in/hnandwana" target="_blank" class="btn">LinkedIn</a>
+                <a href="mailto:harsh.nandwana@gmail.com" class="btn">Email</a>
             </div>
         </div>
-    </div>
-
-    <div class="section skills-section">
-        <h2>Special Powers</h2>
-        <div class="skills-container">
-            <div class="skill-card">
-                <div class="skill-icon">🚀</div>
-                <h3>Frontend Magic</h3>
-                <p>HTML5, CSS3, JavaScript</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">⚡</div>
-                <h3>Backend Sorcery</h3>
-                <p>Node.js, Python, Java</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🎯</div>
-                <h3>Data Wizardry</h3>
-                <p>SQL, MongoDB, Redis</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="links">
-        <a href="https://github.com/hnandwana" target="_blank" class="bounce-hover">GitHub Gallery</a>
-        <a href="https://linkedin.com/in/hnandwana" target="_blank" class="bounce-hover">LinkedIn Stage</a>
-        <a href="mailto:harsh.nandwana@gmail.com" class="bounce-hover">Send a Letter</a>
-    </div>
+    </section>
 
     <style>
         .grain-overlay {
@@ -308,5 +419,96 @@
             animation: shine 3s infinite;
         }
     </style>
+    <script>
+        // Initialize background music
+        const sound = new Howl({
+            src: ['assets/audio/jazz.mp3'],
+            loop: true,
+            volume: 0.5,
+            autoplay: false
+        });
+
+        // Music toggle
+        document.getElementById('musicBtn').addEventListener('click', () => {
+            if (sound.playing()) {
+                sound.pause();
+                document.getElementById('musicBtn').classList.remove('active');
+            } else {
+                sound.play();
+                document.getElementById('musicBtn').classList.add('active');
+            }
+        });
+
+        // Loading screen animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingBar = document.querySelector('.loading-bar');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                loadingBar.style.width = progress + '%';
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        gsap.to('.loading-screen', {
+                            opacity: 0,
+                            duration: 0.5,
+                            onComplete: () => {
+                                document.querySelector('.loading-screen').style.display = 'none';
+                                initAnimations();
+                            }
+                        });
+                    }, 500);
+                }
+            }, 200);
+        });
+
+        // GSAP animations
+        function initAnimations() {
+            // Hero section entrance
+            gsap.from('.hero-content', {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'elastic.out(1, 0.5)'
+            });
+
+            // Project cards stagger
+            gsap.from('.project-card', {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'back.out(1.7)'
+            });
+
+            // Skill cards bounce
+            gsap.from('.skill-card', {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.15,
+                ease: 'bounce.out'
+            });
+
+            // Initialize hover animations
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mouseenter', (e) => {
+                    gsap.to(e.currentTarget, {
+                        scale: 1.05,
+                        rotation: 2,
+                        duration: 0.3
+                    });
+                });
+                card.addEventListener('mouseleave', (e) => {
+                    gsap.to(e.currentTarget, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.3
+                    });
+                });
+            });
+        }
+    </script>
 </body>
 </html>
